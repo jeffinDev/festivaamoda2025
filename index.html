@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contador de Presença</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background: linear-gradient(to right, #ff758c, #ff7eb3);
+            color: white;
+        }
+        h1 {
+            font-size: 2.5em;
+        }
+        #mensagem {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+        #contador {
+            font-size: 4em;
+            font-weight: bold;
+            margin: 20px;
+        }
+        button {
+            font-size: 2em;
+            padding: 15px 30px;
+            cursor: pointer;
+            background-color: white;
+            border: none;
+            border-radius: 10px;
+            color: #ff758c;
+            font-weight: bold;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+        }
+        button:hover {
+            background-color: #ffe3e6;
+        }
+        #logo {
+            max-width: 150px;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <a href="https://ibb.co/Vp3FpZkH">
+        <img src="https://i.ibb.co/Vp3FpZkH/logo2.png" alt="logo2" border="0" width="80" height="80" style="border-radius: 50%;">
+    </a>
+    <h1>Festival A MODA</h1>
+    <p id="mensagem">
+        Bem-vindo ao evento! Aproveite cada momento com muito estilo e glamour!
+    </p>
+    <div id="contador">0</div>
+    <button onclick="incrementar()">Registrar Presença</button>
+    <script>
+        let contador = localStorage.getItem("contador") ? parseInt(localStorage.getItem("contador")) : 0;
+        document.getElementById("contador").textContent = contador;
+        
+        function incrementar() {
+            contador++;
+            document.getElementById("contador").textContent = contador;
+            localStorage.setItem("contador", contador);
+        }
+
+        function resetar() {
+            contador = 0;
+            document.getElementById("contador").textContent = contador;
+            localStorage.setItem("contador", contador); // Limpa o contador do localStorage
+        }
+    </script>
+
+    <!-- Botão de reset agora está no final da página -->
+    <button onclick="resetar()">Resetar Contador</button>
+</body>
+</html>
