@@ -1,78 +1,159 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contador de Presença</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 50px;
-            background: linear-gradient(to right, #ff758c, #ff7eb3);
-            color: white;
-        }
-        h1 {
-            font-size: 2.5em;
-        }
-        #mensagem {
-            font-size: 1.5em;
-            margin-bottom: 20px;
-            font-style: italic;
-        }
-        #contador {
-            font-size: 4em;
-            font-weight: bold;
-            margin: 20px;
-        }
-        button {
-            font-size: 2em;
-            padding: 15px 30px;
-            cursor: pointer;
-            background-color: white;
-            border: none;
-            border-radius: 10px;
-            color: #ff758c;
-            font-weight: bold;
-            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
-        }
-        button:hover {
-            background-color: #ffe3e6;
-        }
-        #logo {
-            max-width: 150px;
-            margin-bottom: 30px;
-        }
-    </style>
+    <title>Festival AMODA 2025 - Registro de Presença</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
-    <a href="https://ibb.co/Vp3FpZkH">
-        <img src="https://i.ibb.co/Vp3FpZkH/logo2.png" alt="logo2" border="0" width="80" height="80" style="border-radius: 50%;">
-    </a>
-    <h1>Festival A MODA</h1>
-    <p id="mensagem">
-        Bem-vindo ao evento! Aproveite cada momento com muito estilo e glamour!
-    </p>
-    <div id="contador">0</div>
-    <button onclick="incrementar()">Registrar Presença</button>
-    <script>
-        let contador = localStorage.getItem("contador") ? parseInt(localStorage.getItem("contador")) : 0;
-        document.getElementById("contador").textContent = contador;
-        
-        function incrementar() {
-            contador++;
-            document.getElementById("contador").textContent = contador;
-            localStorage.setItem("contador", contador);
-        }
+    <div class="container">
+        <!-- Header com Logos -->
+        <header class="header">
+            <div class="logo-container">
+                <div class="logo-img-container">
+                    <img src="logo-fios.png" alt="Fios que Contam Histórias" class="logo" onerror="this.style.display='none'">
+                    <div class="logo-placeholder">Fios que Contam Histórias</div>
+                </div>
+                <div class="logo-img-container">
+                    <img src="logo-festival.png" alt="Festival AMODA 2025" class="logo" onerror="this.style.display='none'">
+                    <div class="logo-placeholder">Festival AMODA 2025</div>
+                </div>
+            </div>
+            <button id="toggleView" class="toggle-btn">
+                <span id="toggleText">Modo Admin</span>
+                <div class="toggle-slider"></div>
+            </button>
+        </header>
 
-        function resetar() {
-            contador = 0;
-            document.getElementById("contador").textContent = contador;
-            localStorage.setItem("contador", contador); // Limpa o contador do localStorage
-        }
-    </script>
+        <!-- Tela do Registrador -->
+        <main id="registradorView" class="view active">
+            <div class="hero-section">
+                <div class="event-titles">
+                    <h1 class="hero-title">Fios que Contam Histórias</h1>
+                    <div class="title-connector">&</div>
+                    <h1 class="hero-title">Festival AMODA 2025</h1>
+                </div>
+                <p class="hero-subtitle">Dois eventos, uma experiência única de moda e narrativa</p>
+            </div>
 
-    <!-- Botão de reset agora está no final da página -->
-    <button onclick="resetar()">Resetar Contador</button>
+            <div class="counter-display">
+                <div class="counter-number" id="totalRegistros">0</div>
+                <p class="counter-text">pessoas já registraram presença nos eventos</p>
+            </div>
+            
+            <button id="btnRegistrar" class="btn-registrar">
+                <span class="btn-text">Registrar Minha Presença</span>
+                <div class="btn-shine"></div>
+            </button>
+            
+            <div id="feedback" class="feedback hidden">
+                <div class="feedback-content">
+                    <div class="checkmark">✨</div>
+                    <p id="feedbackMessage">Presença registrada com sucesso!</p>
+                    <small id="registroInfo"></small>
+                </div>
+            </div>
+
+            <div class="floating-elements">
+                <div class="floating-element element-1"></div>
+                <div class="floating-element element-2"></div>
+                <div class="floating-element element-3"></div>
+            </div>
+        </main>
+
+        <!-- Tela do Administrador -->
+        <main id="adminView" class="view">
+            <div class="admin-panel">
+                <h2 class="admin-title">Painel Administrativo</h2>
+                
+                <!-- Cards de Estatísticas -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">👥</div>
+                        <div class="stat-number" id="adminCounter">0</div>
+                        <div class="stat-label">Total de Registros</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🕒</div>
+                        <div class="stat-number" id="lastRegistration">-</div>
+                        <div class="stat-label">Último Registro</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🎪</div>
+                        <div class="stat-number" id="eventType">Ambos</div>
+                        <div class="stat-label">Eventos</div>
+                    </div>
+                </div>
+
+                <!-- Lista de Registros -->
+                <div class="registros-section">
+                    <h3>Últimos Registros</h3>
+                    <div class="registros-list" id="registrosList">
+                        <div class="registro-item" style="justify-content: center; color: var(--light-gold);">
+                            Nenhum registro encontrado
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ações do Admin -->
+                <div class="actions-grid">
+                    <button id="btnExportPDF" class="action-btn pdf-btn">
+                        <span class="btn-icon">📄</span>
+                        Exportar PDF
+                    </button>
+                    <button id="btnExportCSV" class="action-btn csv-btn">
+                        <span class="btn-icon">📊</span>
+                        Exportar CSV
+                    </button>
+                    <button id="btnReset" class="action-btn reset-btn">
+                        <span class="btn-icon">🔄</span>
+                        Zerar Contador
+                    </button>
+                </div>
+
+                <!-- Confirmação de Reset -->
+                <div id="confirmation" class="confirmation hidden">
+                    <div class="confirmation-content">
+                        <h3>Confirmar Reset</h3>
+                        <p id="confirmationText">Todos os registros serão permanentemente excluídos.</p>
+                        <div class="confirmation-buttons">
+                            <button id="btnConfirmReset" class="btn-confirm">Sim, Zerar</button>
+                            <button id="btnCancelReset" class="btn-cancel">Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Modal de Login -->
+        <div id="loginModal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Acesso Restrito</h3>
+                    <button id="closeModal" class="close-btn">&times;</button>
+                </div>
+                <form id="loginForm" class="login-form">
+                    <div class="input-group">
+                        <label for="username">Usuário</label>
+                        <input type="text" id="username" placeholder="Digite seu usuário" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="password">Senha</label>
+                        <input type="password" id="password" placeholder="Digite sua senha" required>
+                    </div>
+                    <button type="submit" class="btn-login">
+                        <span class="btn-text">Acessar Sistema</span>
+                    </button>
+                </form>
+                <div id="loginError" class="error-message hidden">
+                    <p>Usuário ou senha incorretos!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>

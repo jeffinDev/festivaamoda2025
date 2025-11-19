@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Admin - Festival AMODA 2025</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Tela de Login -->
+    <div class="container" id="login-container">
+        <header>
+            <div class="logo-container">
+                <img src="Logo audiovisual (1).png" alt="Fios que Contam Histórias" class="logo">
+                <img src="Design sem nome (12).png" alt="Festival AMODA 2025" class="logo">
+            </div>
+        </header>
+        
+        <main class="login-form">
+            <h2>Acesso Administrativo</h2>
+            <form id="loginForm">
+                <div class="input-group">
+                    <label for="username">Usuário:</label>
+                    <input type="text" id="username" required>
+                </div>
+                <div class="input-group">
+                    <label for="password">Senha:</label>
+                    <input type="password" id="password" required>
+                </div>
+                <button type="submit" class="btn-login">Entrar</button>
+            </form>
+            <div id="login-error" class="error-message hidden">
+                <p>Usuário ou senha incorretos!</p>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Tela do Administrador -->
+    <div class="container hidden" id="admin-container">
+        <header>
+            <div class="logo-container">
+                <img src="Logo audiovisual (1).png" alt="Fios que Contam Histórias" class="logo">
+                <img src="Design sem nome (12).png" alt="Festival AMODA 2025" class="logo">
+            </div>
+            <button id="btnLogout" class="btn-logout">Sair</button>
+        </header>
+        
+        <main class="admin-panel">
+            <h2>Painel Administrativo</h2>
+            
+            <div class="stats-card">
+                <h3>Total de Registros</h3>
+                <div class="counter" id="adminCounter">0</div>
+            </div>
+            
+            <div class="actions">
+                <button id="btnExportPDF" class="btn-action">Exportar PDF</button>
+                <button id="btnExportCSV" class="btn-action">Exportar CSV</button>
+                <button id="btnReset" class="btn-reset">Zerar Contador</button>
+            </div>
+            
+            <div id="confirmation" class="confirmation hidden">
+                <p>Tem certeza que deseja zerar o contador?</p>
+                <div class="confirmation-buttons">
+                    <button id="btnConfirmReset" class="btn-confirm">Sim</button>
+                    <button id="btnCancelReset" class="btn-cancel">Cancelar</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
