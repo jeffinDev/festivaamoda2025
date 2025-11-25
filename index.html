@@ -5,11 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Festival AMODA 2025 - Registro de Presença</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
     <div class="container">
-        <!-- Header Compacto -->
+        <!-- Header Simples -->
         <header class="header">
             <div class="logo-container">
                 <div class="logo-img-container">
@@ -36,7 +35,7 @@
                             <div class="title-connector">&</div>
                             <h1 class="hero-title">Festival AMODA 2025</h1>
                         </div>
-                        <p class="hero-subtitle">Dois eventos, uma experiência única de moda e narrativa</p>
+                        <p class="hero-subtitle">Dois eventos, uma experiência única</p>
                     </div>
 
                     <div class="counter-display">
@@ -47,24 +46,17 @@
 
                 <div class="right-panel">
                     <button id="btnRegistrar" class="btn-registrar">
-                        <span class="btn-text">Registrar Minha Presença</span>
-                        <div class="btn-shine"></div>
+                        <span class="btn-text">Registrar Presença</span>
                     </button>
                     
                     <div id="feedback" class="feedback hidden">
                         <div class="feedback-content">
-                            <div class="checkmark">✨</div>
-                            <p id="feedbackMessage">Presença registrada com sucesso!</p>
+                            <div class="checkmark">✓</div>
+                            <p id="feedbackMessage">Presença registrada!</p>
                             <small id="registroInfo"></small>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="floating-elements">
-                <div class="floating-element element-1"></div>
-                <div class="floating-element element-2"></div>
-                <div class="floating-element element-3"></div>
             </div>
         </main>
 
@@ -77,12 +69,10 @@
                     <div class="admin-stats">
                         <div class="stats-grid">
                             <div class="stat-card">
-                                <div class="stat-icon">👥</div>
                                 <div class="stat-number" id="adminCounter">0</div>
                                 <div class="stat-label">Total de Registros</div>
                             </div>
                             <div class="stat-card">
-                                <div class="stat-icon">🕒</div>
                                 <div class="stat-number" id="lastRegistration">-</div>
                                 <div class="stat-label">Último Registro</div>
                             </div>
@@ -90,15 +80,12 @@
 
                         <div class="actions-grid">
                             <button id="btnExportPDF" class="action-btn pdf-btn">
-                                <span class="btn-icon">📄</span>
                                 Exportar PDF
                             </button>
                             <button id="btnExportCSV" class="action-btn csv-btn">
-                                <span class="btn-icon">📊</span>
                                 Exportar CSV
                             </button>
                             <button id="btnReset" class="action-btn reset-btn">
-                                <span class="btn-icon">🔄</span>
                                 Zerar Contador
                             </button>
                         </div>
@@ -120,9 +107,9 @@
                 <div id="confirmation" class="confirmation hidden">
                     <div class="confirmation-content">
                         <h3>Confirmar Reset</h3>
-                        <p id="confirmationText">Todos os registros serão permanentemente excluídos.</p>
+                        <p id="confirmationText">Todos os registros serão excluídos.</p>
                         <div class="confirmation-buttons">
-                            <button id="btnConfirmReset" class="btn-confirm">Sim, Zerar</button>
+                            <button id="btnConfirmReset" class="btn-confirm">Sim</button>
                             <button id="btnCancelReset" class="btn-cancel">Cancelar</button>
                         </div>
                     </div>
@@ -135,19 +122,19 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h3>Acesso Restrito</h3>
-                    <button id="closeModal" class="close-btn">&times;</button>
+                    <button id="closeModal" class="close-btn">×</button>
                 </div>
                 <form id="loginForm" class="login-form">
                     <div class="input-group">
                         <label for="username">Usuário</label>
-                        <input type="text" id="username" placeholder="Digite seu usuário" required>
+                        <input type="text" id="username" required>
                     </div>
                     <div class="input-group">
                         <label for="password">Senha</label>
-                        <input type="password" id="password" placeholder="Digite sua senha" required>
+                        <input type="password" id="password" required>
                     </div>
                     <button type="submit" class="btn-login">
-                        <span class="btn-text">Acessar Sistema</span>
+                        Acessar Sistema
                     </button>
                 </form>
                 <div id="loginError" class="error-message hidden">
